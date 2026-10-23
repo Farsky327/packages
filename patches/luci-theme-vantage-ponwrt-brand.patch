@@ -1,0 +1,73 @@
+diff --git a/luci-theme-vantage/htdocs/luci-static/vantage/logo.svg b/luci-theme-vantage/htdocs/luci-static/vantage/logo.svg
+index 109b768..22b82df 100644
+--- a/luci-theme-vantage/htdocs/luci-static/vantage/logo.svg
++++ b/luci-theme-vantage/htdocs/luci-static/vantage/logo.svg
+@@ -1 +1 @@
+-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32"><rect x="1" y="1" width="30" height="30" rx="7" fill="#16181b" stroke="#3a3e44"/><path d="M9 10.5 16 22" fill="none" stroke="#e7e9ec" stroke-width="2.6" stroke-linecap="round"/><path d="M16 22 23 10.5" fill="none" stroke="#c8f031" stroke-width="2.6" stroke-linecap="round"/><circle cx="23" cy="10.5" r="1.9" fill="#c8f031"/></svg>
++<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32"><rect x="1" y="1" width="30" height="30" rx="7" fill="#16181b" stroke="#3a3e44"/><path d="M11 23V9" fill="none" stroke="#e7e9ec" stroke-width="2.6" stroke-linecap="round"/><path d="M11 9h5.5a4.5 4.5 0 0 1 0 9H11" fill="none" stroke="#c8f031" stroke-width="2.6" stroke-linecap="round"/><circle cx="21.5" cy="12.5" r="1.9" fill="#c8f031"/></svg>
+diff --git a/luci-theme-vantage/ucode/template/themes/vantage/header.ut b/luci-theme-vantage/ucode/template/themes/vantage/header.ut
+index 302f403..88c6a44 100644
+--- a/luci-theme-vantage/ucode/template/themes/vantage/header.ut
++++ b/luci-theme-vantage/ucode/template/themes/vantage/header.ut
+@@ -7,6 +7,12 @@
+  core header.ut, which includes this one, then prints its own
+  L = new LuCI({...}) script (LuCI build, nodespec; on an anonymous 404 the
+  whole menu tree): upstream, see docs/luci-contract.md section 2.
++
++ PonWrt customization: brand mark is a "P" (white stem + green bowl) with
++ the green dot, and the brand word reads "Ponwrt". Maintained in the
++ Farsky327/packages feed (this package); the change is also tracked as
++ patches/luci-theme-vantage-ponwrt-brand.patch — see SYNC.md for the
++ re-apply procedure after syncing a new upstream version.
+ -#}
+ {%
+ 	const authed = !!ctx.authsession;
+@@ -46,8 +52,8 @@
+ {% if (authed): %}
+ 	<nav class="vt-rail" id="vt-rail" aria-label="{{ entityencode(_('Main navigation'), true) }}">
+ 		<a class="vt-brand" href="{{ dispatcher.build_url('admin') }}" aria-label="{{ entityencode(_('Home'), true) }}">
+-			<svg viewBox="0 0 32 32" width="32" height="32" aria-hidden="true"><rect x="1" y="1" width="30" height="30" rx="7" class="vt-brand-tile"/><path d="M9 10.5 16 22" class="vt-brand-l"/><path d="M16 22 23 10.5" class="vt-brand-r"/><circle cx="23" cy="10.5" r="1.9" class="vt-brand-dot"/></svg>
+-			<span class="vt-brand-word">Vantage</span>
++			<svg viewBox="0 0 32 32" width="32" height="32" aria-hidden="true"><rect x="1" y="1" width="30" height="30" rx="7" class="vt-brand-tile"/><path d="M11 23V9" class="vt-brand-l"/><path d="M11 9h5.5a4.5 4.5 0 0 1 0 9H11" class="vt-brand-r"/><circle cx="21.5" cy="12.5" r="1.9" class="vt-brand-dot"/></svg>
++			<span class="vt-brand-word">Ponwrt</span>
+ 		</a>
+ 		<ul class="vt-rail-list" id="vt-rail-list"></ul>
+ 		<div class="vt-rail-foot">
+@@ -63,7 +69,7 @@
+ 		<header class="vt-topbar">
+ {% if (!authed): %}
+ 			<span class="vt-brand vt-brand-static" aria-hidden="true">
+-				<svg viewBox="0 0 32 32" width="28" height="28"><rect x="1" y="1" width="30" height="30" rx="7" class="vt-brand-tile"/><path d="M9 10.5 16 22" class="vt-brand-l"/><path d="M16 22 23 10.5" class="vt-brand-r"/><circle cx="23" cy="10.5" r="1.9" class="vt-brand-dot"/></svg>
++				<svg viewBox="0 0 32 32" width="28" height="28"><rect x="1" y="1" width="30" height="30" rx="7" class="vt-brand-tile"/><path d="M11 23V9" class="vt-brand-l"/><path d="M11 9h5.5a4.5 4.5 0 0 1 0 9H11" class="vt-brand-r"/><circle cx="21.5" cy="12.5" r="1.9" class="vt-brand-dot"/></svg>
+ 			</span>
+ {% endif %}
+ 			<nav class="vt-crumbs" id="vt-crumbs" aria-label="{{ entityencode(_('Breadcrumb'), true) }}"><span class="vt-crumb vt-crumb-current">{{ entityencode(page_title, true) }}</span></nav>
+diff --git a/luci-theme-vantage/ucode/template/themes/vantage/sysauth.ut b/luci-theme-vantage/ucode/template/themes/vantage/sysauth.ut
+index e2dd259..1c8327a 100644
+--- a/luci-theme-vantage/ucode/template/themes/vantage/sysauth.ut
++++ b/luci-theme-vantage/ucode/template/themes/vantage/sysauth.ut
+@@ -6,6 +6,12 @@
+  only tested, never echoed; the error is generic. The form posts back to the
+  requested URL (no action attribute). The inline script is data-free: the
+  HTTPS probe reads its port list from an entity-encoded data attribute.
++
++ PonWrt customization: brand mark is a "P" (white stem + green bowl) with
++ the green dot, and the brand word reads "Ponwrt". Maintained in the
++ Farsky327/packages feed (this package); the change is also tracked as
++ patches/luci-theme-vantage-ponwrt-brand.patch — see SYNC.md for the
++ re-apply procedure after syncing a new upstream version.
+ -#}
+ {%
+ 	let tls = uci.get('uhttpd', 'main', 'listen_https') ?? [];
+@@ -37,9 +43,9 @@
+ <main class="vt-login">
+ 	<div class="vt-login-card">
+ 		<div class="vt-login-head">
+-			<svg class="vt-login-mark" viewBox="0 0 32 32" width="44" height="44" aria-hidden="true"><rect x="1" y="1" width="30" height="30" rx="7" class="vt-brand-tile"/><path d="M9 10.5 16 22" class="vt-brand-l"/><path d="M16 22 23 10.5" class="vt-brand-r"/><circle cx="23" cy="10.5" r="1.9" class="vt-brand-dot"/></svg>
++			<svg class="vt-login-mark" viewBox="0 0 32 32" width="44" height="44" aria-hidden="true"><rect x="1" y="1" width="30" height="30" rx="7" class="vt-brand-tile"/><path d="M11 23V9" class="vt-brand-l"/><path d="M11 9h5.5a4.5 4.5 0 0 1 0 9H11" class="vt-brand-r"/><circle cx="21.5" cy="12.5" r="1.9" class="vt-brand-dot"/></svg>
+ 			<div>
+-				<h1 class="vt-login-title">Vantage</h1>
++				<h1 class="vt-login-title">Ponwrt</h1>
+ 				<p class="vt-login-sub"><span class="vt-login-dot" aria-hidden="true"></span>{{ entityencode(_('Authorization Required'), true) }}</p>
+ 			</div>
+ 		</div>
