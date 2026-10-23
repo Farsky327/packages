@@ -1,2 +1,6 @@
 # 本地维护文档，不上传远端
 SYNC.md
+
+# 上游发行包与截图，仅本地留存
+luci-app-vnt-main.zip
+luci-app-vnt/Image/
